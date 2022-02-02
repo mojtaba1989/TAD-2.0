@@ -47,8 +47,9 @@ class awr1642:
             except:
                 os.system('sudo chmod 666 /dev/tty' + self.CLIportNum)
                 os.system('sudo chmod 666 /dev/tty' + self.DataportNum)
-                self.CLIport = serial.Serial('/dev/tty.usbmodem' + self.CLIportNum, 115200)
-                self.Dataport = serial.Serial('/dev/tty.usbmodem' + self.DataportNum, 921600, timeout=1)
+                self.CLIport = serial.Serial('/dev/tty' + self.CLIportNum, 115200)
+                self.Dataport = serial.Serial('/dev/tty' + self.DataportNum, 921600, timeout=1)
+                
 
     def parseConfigFile(self):
           # Initialize an empty dictionary to store the configuration parameters
