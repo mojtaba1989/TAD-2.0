@@ -2,8 +2,7 @@ import serial
 import time
 import numpy as np
 import platform
-import pyqtgraph as pg
-from pyqtgraph.Qt import QtGui
+import os
 
 
 class awr1642:
@@ -434,6 +433,8 @@ class awr1642:
             self.CLIport.write(('sensorStop\n').encode())
 
     def runPlot(self):
+        import pyqtgraph as pg
+        from pyqtgraph.Qt import QtGui
         max_range = self.configParameters["maxRange"]
         pg.setConfigOption('background', 'w')
         win = pg.GraphicsWindow(title="2D scatter plot")
