@@ -41,6 +41,15 @@ class awr1642:
         elif platform.system() == "Darwin":
             self.CLIport = serial.Serial('/dev/tty.usbmodem' + self.CLIportNum, 115200)
             self.Dataport = serial.Serial('/dev/tty.usbmodem' + self.DataportNum, 921600, timeout=1)
+        elif platform.system() == "Linux":
+            try:
+                self.CLIport = serial.Serial('/dev/tty' + self.CLIportNum, 115200)
+                self.Dataport = serial.Serial('/dev/tty' + self.DataportNum, 921600, timeout=1)
+            except:
+                os.system('sudo chmod 666 /dev/tty' + self.CLIportNum)
+                os.system('sudo chmod 666 /dev/tty' + self.DataportNum)
+                self.CLIport = serial.Serial('/dev/tty.usbmodem' + self.CLIportNum, 115200)
+                self.Dataport = serial.Serial('/dev/tty.usbmodem' + self.DataportNum, 921600, timeout=1)
 
     def parseConfigFile(self):
           # Initialize an empty dictionary to store the configuration parameters
@@ -514,7 +523,7 @@ class awr1642:
 
 
 if __name__ == '__main__':
-    driver = awr1642("profile.cfg", "3", "4")
+    driver = awr1642("profile.cfg", "ACM0", "ACM1")
     driver.sensorSetup()
     time.sleep(.01)
     # driver.optimize((5, 15) ,10)
